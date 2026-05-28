@@ -1,0 +1,10 @@
+name: Hello World Check
+on: [push, pull_request] # Runs on every push or PR
+
+jobs:
+  greet:
+    runs-on: ubuntu-latest # Runs on a GitHub-hosted VM
+    steps:
+      - uses: actions/checkout@v4 # Pulls your code
+      - name: Run Python
+        run: python hello.py # Executes your script
