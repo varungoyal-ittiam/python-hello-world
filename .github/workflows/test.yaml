@@ -3,28 +3,29 @@ name: CI Checks
 on: [push, pull_request]
 
 jobs:
-  lint:
-    name: Lint Check
-    runs-on: ubuntu-latest
+  checks:
+    name: Run CI Checks
+    # Pinning to a specific LTS release (ubuntu-24.04) prevents unexpected breaking 
+    # changes when GitHub rolls out updates to the 'ubuntu-latest' label.
+    runs-on: ubuntu-24.04
     steps:
-      - name: Set up environment
-        uses: ./.github/actions/setup-env
+      - name: Checkout code
+        uses: actions/checkout@v4
 
-      - name: Install pylint
-        run: pip install pylint
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.10'
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install pylint mypy
 
       - name: Run Linter (pylint)
         run: pylint --rcfile=.pylintrc .
 
-  typecheck:
-    name: Type Check
-    runs-on: ubuntu-latest
-    steps:
-      - name: Set up environment
-        uses: ./.github/actions/setup-env
-
-      - name: Install mypy
-        run: pip install mypy
-
       - name: Run Type Checker (mypy)
-        run: mypy --ignore-missing-imports .
+        # 'if: always()' forces mypy to run even if the linter fails
+        if: always()
+        run: mypy .
