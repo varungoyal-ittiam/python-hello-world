@@ -61,4 +61,32 @@ def type_check_test(val: int) -> str:
   # Returning int instead of str. Mypy should catch this!
   return val
 
+# 11. Bad whitespace - missing space after comma.
+# (Expected: bad-whitespace / C0326)
+for (x,y) in [(1, 2)]:
+  print(x)
+
+# 12. Non-idiomatic comparison negation (not a in b).
+# (Expected: g-comparison-negation)
+my_list = [1, 2, 3]
+if not 4 in my_list:
+  print("4 is not in list")
+
+# 13. Import not at top level.
+# (Expected: g-import-not-at-top)
+def calculate_square_root(value):
+  import math  # Inline import!
+  return math.sqrt(value)
+
+# 14. Method signature mismatch in subclass (Mypy error).
+# (Expected: Mypy error - Signature of "extract" incompatible with supertype)
+class BaseExtractor:
+  def extract(self, filepath: str) -> None:
+    pass
+
+class PDFExtractor(BaseExtractor):
+  # Incompatible override: using **kwargs instead of explicit signature.
+  def extract(self, **kwargs) -> None:
+    pass
+
 # fmt: on
