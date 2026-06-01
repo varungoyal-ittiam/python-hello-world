@@ -5,8 +5,7 @@ on: [push, pull_request]
 jobs:
   checks:
     name: Run CI Checks
-    # Pinning to a specific LTS release (ubuntu-24.04) prevents unexpected breaking 
-    # changes when GitHub rolls out updates to the 'ubuntu-latest' label.
+    # Pin to a specific Ubuntu version for stable and consistent builds
     runs-on: ubuntu-24.04
     steps:
       - name: Checkout code
