@@ -4,3 +4,12 @@ indent-string='  '
 
 # Enforce Google's strict 80-character maximum line length (pylint default is 100).
 max-line-length=80
+
+[REPORTS]
+# Disable printing the evaluation score (e.g. rated at X/10).
+score=no
+
+[MESSAGES CONTROL]
+# Disable too-few-public-methods (R0903) as it triggers on dataclasses,
+# exceptions, and single-method interfaces/strategies, creating high noise.
+disable=too-few-public-methods
