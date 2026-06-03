@@ -40,7 +40,7 @@ def indented_function():
 
 # 7. Line too long - exceeds 80 characters.
 # (Expected: line-too-long / C0301)
-a_very_long_string_variable_that_exists_only_to_exceed_the_eighty_character_limit_value = "long!"
+a_very_long_string_variable_that_exists_only_to_exceed_the_eighty_character_limit_value = "very long!"
 
 # 8. Bare except clause.
 # (Expected: bare-except / W0702)
